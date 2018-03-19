@@ -45,7 +45,7 @@ module OAuth
         parameters = self.collect_rack_parameters(rack_request)
         result = OAuth::OAuthProxy::OAuthRequest.new(
           'method' => rack_request.method,
-          'uri' => Rails.env.production? ? rack_request.url.sub('http://', 'https://') : rack_request.url,
+          'uri' => Rails.env.production? || Rails.env.staging? ? rack_request.url.sub('http://', 'https://') : rack_request.url,
           'parameters' => parameters
         )
         rack_request.body.rewind
